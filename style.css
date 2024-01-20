@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #fafafa;
+}
+
+.tool-bar {
+    display: flex;
+    height: 5rem;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #dcdde1;
+}
+
+.tool-menu {
+    font-size: 3rem;
+    margin-left: 5rem;
+    cursor: pointer;
+}
+
+.tool-container {
+    justify-self: center;
+    position: absolute;
+    left: calc(40% - 9rem);
+    height: 5rem;
+    font-size: 3rem;
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tool {
+    height: 100%;
+    padding: .25em;
+    cursor: pointer;
+}
+
+.tool.pencil, .tool.upload, .tool.save {
+    height: 4.25rem;
+}
