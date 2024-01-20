@@ -10,9 +10,9 @@ body {
 
 .tool-bar {
     display: flex;
-    height: 5rem;
     justify-content: space-between;
     align-items: center;
+    height: 5rem;
     background-color: #dcdde1;
 }
 
@@ -23,15 +23,14 @@ body {
 }
 
 .tool-container {
-    justify-self: center;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
     position: absolute;
     left: calc(40% - 9rem);
     height: 5rem;
     font-size: 3rem;
     width: 40%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
 .tool {
