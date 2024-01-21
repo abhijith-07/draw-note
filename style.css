@@ -12,7 +12,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 5rem;
+    height: 4rem;
     background-color: #dcdde1;
 }
 
@@ -41,4 +41,44 @@ body {
 
 .tool.pencil, .tool.upload, .tool.save {
     height: 4.25rem;
+}
+
+.tool-edit {
+    position: absolute;
+    display: inline-block;
+    top: 4.5rem;
+    border-top: none;
+}
+
+.tool-edit input {
+    width: 5rem;
+    height: 5rem;
+    margin-top: -1rem;
+}
+
+.eraser-edit {
+    left: 7rem;
+}
+
+.colors {
+    display: flex;
+    justify-content: space-around;
+    margin-top: -2rem;
+}
+
+.color {
+    width: 20px;
+    height: 20px;
+}
+
+.black {
+    background-color: #000;
+}
+
+.red {
+    background-color: #f00;
+}
+
+.green {
+    background-color: #0f0;
 }
