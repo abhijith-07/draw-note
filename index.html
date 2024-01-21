@@ -8,30 +8,41 @@
     <title>Note-JS</title>
 </head>
 <body>
-    <div class="tool-bar">
-        <div class="tool-menu">
-            <i class="fas fa-bars"></i>
-        </div>
-        <div class="tool-container">
-            <img src="./assets/images/pencil.svg" alt="" class="tool pencil">
-            <div class="tool-edit pencil-edit">
-                <input type="range" min="2" max="10" value="3">
-                <div class="colors">
-                    <div class="color black"></div>
-                    <div class="color red"></div>
-                    <div class="color green"></div>
+    <header>
+        <div class="tool-bar">
+            <div class="tool-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+            <div class="tool-container">
+                <img src="./assets/images/pencil.svg" alt="" class="tool pencil">
+                <div class="tool-edit pencil-edit">
+                    <input type="range" min="2" max="10" value="3">
+                    <div class="colors">
+                        <div class="color black"></div>
+                        <div class="color red"></div>
+                        <div class="color green"></div>
+                    </div>
                 </div>
+                <img src="./assets/images/eraser.svg" alt="" class="tool eraser">
+                <div class="tool-edit eraser-edit">
+                    <input type="range" min="2" max="10" value="3">
+                </div>
+                <img src="./assets/images/image-upload.svg" alt="" class="tool upload">
+                <img src="./assets/images/sticky.svg" alt="" class="tool sticky">
+                <img src="./assets/images/undo.svg" alt="" class="tool undo">
+                <img src="./assets/images/redo.svg" alt="" class="tool redo">
             </div>
-            <img src="./assets/images/eraser.svg" alt="" class="tool eraser">
-            <div class="tool-edit eraser-edit">
-                <input type="range" min="2" max="10" value="3">
-            </div>
-            <img src="./assets/images/image-upload.svg" alt="" class="tool upload">
-            <img src="./assets/images/sticky.svg" alt="" class="tool sticky">
-            <img src="./assets/images/undo.svg" alt="" class="tool undo">
-            <img src="./assets/images/redo.svg" alt="" class="tool redo">
         </div>
-    </div>
+    </header>
+    <main class="container">
+        <div class="sticky-container">
+            <div class="sticky-header">
+                <div class="sticky-minimize">-</div>
+                <div class="sticky-delete">x</div>
+            </div>
+            <div class="sticky-main"></div>
+        </div>
+    </main>
     <script src="script.js"></script>
 </body>
 </html>
