@@ -45,7 +45,7 @@ body {
 
 .tool-edit {
     position: absolute;
-    display: inline-block;
+    display: none;
     top: 4.5rem;
     border-top: none;
 }
