@@ -7,7 +7,7 @@ let pencilFlag = false
 let eraser = document.querySelector(".eraser")
 let eraserEdit = document.querySelector(".eraser-edit")
 let eraserFlag = false
-let stickyContainer = document.querySelector(".sticky-container")
+let stickyTool = document.querySelector(".sticky")
 
 // Menu open and close
 menu.addEventListener("click", () => {
@@ -27,41 +27,76 @@ eraser.addEventListener("click", ()=>{
     else {openEraser()}
 })
 
-// Drag and Drop Sticky note
-stickyContainer.addEventListener("mousedown", (event) => {
-    let shiftX = event.clientX - stickyContainer.getBoundingClientRect().left;
-    let shiftY = event.clientY - stickyContainer.getBoundingClientRect().top;
-
-    stickyContainer.style.position = 'absolute';
-    stickyContainer.style.zIndex = 1000;
-    document.body.append(stickyContainer);
-  
-    moveAt(event.pageX, event.pageY);
-  
-    // moves the stickyContainer at (pageX, pageY) coordinates
-    // taking initial shifts into account
-    function moveAt(pageX, pageY) {
-      stickyContainer.style.left = pageX - shiftX + 'px';
-      stickyContainer.style.top = pageY - shiftY + 'px';
-    }
-  
-    function onMouseMove(event) {
-      moveAt(event.pageX, event.pageY);
-    }
-  
-    // move the stickyContainer on mousemove
-    document.addEventListener('mousemove', onMouseMove);
-  
-    // drop the stickyContainer, remove unneeded handlers
-    stickyContainer.onmouseup = function() {
-      document.removeEventListener('mousemove', onMouseMove);
-      stickyContainer.onmouseup = null;
-    };
+// Pop up sticky note
+stickyTool.addEventListener("click", () => {
+    let stickyTemplate = 
+        `<div class="sticky-header">
+                <div class="sticky-minimize"></div>
+                <div class="sticky-delete"></div>
+        </div>
+        <div class="sticky-main">
+            <textarea></textarea>
+        </div>
+        `
+    createSticky(stickyTemplate)
 })
 
-stickyContainer.ondragstart = () => {
-    return false;
-};
+function createSticky(stickyTemplate) {
+    let stickyContainer = document.createElement("div")
+    stickyContainer.setAttribute("class", "sticky-container")
+    stickyContainer.innerHTML = stickyTemplate
+    document.querySelector("main").appendChild(stickyContainer)
+
+    let deleteSticky = stickyContainer.querySelector(".sticky-delete")
+    let minimizeSticky = stickyContainer.querySelector(".sticky-minimize")
+
+    noteActions(minimizeSticky, deleteSticky, stickyContainer)
+
+    stickyContainer.onmousedown = (event) => {
+        dragAndDrop(stickyContainer, event)
+    }
+
+}
+
+function noteActions(minimizeSticky, deleteSticky, stickyContainer) {
+    deleteSticky.addEventListener("click", (e) => {
+        stickyContainer.remove()
+    })
+}
+
+function dragAndDrop(element, event) {
+    let shiftX = event.clientX - element.getBoundingClientRect().left;
+    let shiftY = event.clientY - element.getBoundingClientRect().top;
+
+    element.style.position = 'absolute';
+    element.style.zIndex = 1000;
+    
+    moveAt(event.pageX, event.pageY);
+
+    // moves the element at (pageX, pageY) coordinates
+    // taking initial shifts into account
+    function moveAt(pageX, pageY) {
+        element.style.left = pageX - shiftX + 'px';
+        element.style.top = pageY - shiftY + 'px';
+    }
+   
+    function onMouseMove(event) {
+        moveAt(event.pageX, event.pageY);
+    }
+    
+    // move the element on mousemove
+    document.addEventListener('mousemove', onMouseMove);
+    
+    // drop the element, remove unneeded handlers
+    element.onmouseup = function() {
+        document.removeEventListener('mousemove', onMouseMove);
+        element.onmouseup = null;
+    };
+
+    element.ondragstart = () => {
+        return false;
+    };
+}
 
 function closeTools() {
     menuFlag = !menuFlag

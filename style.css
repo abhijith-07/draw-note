@@ -6,6 +6,8 @@
 
 body {
     background-color: #fafafa;
+    width: 100vw;
+    overflow: hidden;
 }
 
 .tool-bar {
@@ -32,6 +34,7 @@ body {
     font-size: 3rem;
     width: 40%;
     animation: drop-down-animation 1.25s;
+    user-select: none;
 }
 
 @keyframes drop-down-animation {
@@ -94,8 +97,6 @@ body {
 }
 
 .sticky-container {
-    width: 250px;
-    height: 250px;
     box-shadow: 0px 2px 7px #000;
     position: absolute;
     top: 25%;
@@ -108,19 +109,40 @@ body {
     justify-content: end;
     gap: 0.5em;
     padding: 0.5rem 0.5rem;
-    cursor: pointer;
+    cursor: grabbing;
+}
+
+.sticky-header:hover {
+    background-color: #b6b6b8;
 }
 
 .sticky-minimize, .sticky-delete {
-    background-color: rgb(0, 255, 110);
-    width: 2rem;
-    height: 2rem;
-    text-align: center;
-    font-size: 1.5rem;
+    background-color: rgb(10, 238, 44);
+    width: 1.5rem;
+    height: 1.5rem;
     border-radius: 50%;
     color: #fff;
+    cursor: pointer;
 }
 
 .sticky-delete {
     background-color: rgb(255, 51, 0);
+}
+
+.sticky-delete:hover {
+    background-color: rgb(211, 42, 0);
+}
+
+.sticky-main {
+    width: 250px;
+    height: 200px;
+}
+
+.sticky-main textarea {
+    width: 100%;
+    height: 100%;
+    resize: none;
+    outline: none;
+    border: none;
+    padding: 1em;
 }
