@@ -28,9 +28,19 @@ body {
     align-items: center;
     position: absolute;
     left: calc(40% - 9rem);
-    height: 5rem;
+    height: 4rem;
     font-size: 3rem;
     width: 40%;
+    animation: drop-down-animation 1.25s;
+}
+
+@keyframes drop-down-animation {
+    from {
+        top: -2rem;
+    }
+    to {
+        top: 0;
+    }
 }
 
 .tool {
