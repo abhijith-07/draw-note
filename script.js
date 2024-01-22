@@ -47,12 +47,29 @@ upload.addEventListener("click", () => {
     let inputFile = document.createElement("input")
     inputFile.setAttribute("type", "file")
     inputFile.click()
+
+    inputFile.addEventListener("change", () => {
+        let file = inputFile.files[0]
+        let imgUrl = URL.createObjectURL(file)
+
+        let imageTemplate = 
+            `<div class="sticky-header">
+                    <div class="sticky-minimize"></div>
+                    <div class="sticky-delete"></div>
+            </div>
+            <div class="sticky-main">
+                <img src=${imgUrl}>
+            </div>
+            `
+        createSticky(imageTemplate)
+        
+    })
 })
 
-function createSticky(stickyTemplate) {
+function createSticky(template) {
     let stickyContainer = document.createElement("div")
     stickyContainer.setAttribute("class", "sticky-container")
-    stickyContainer.innerHTML = stickyTemplate
+    stickyContainer.innerHTML = template
     document.querySelector("main").appendChild(stickyContainer)
 
     let deleteSticky = stickyContainer.querySelector(".sticky-delete")

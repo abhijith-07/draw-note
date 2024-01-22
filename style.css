@@ -151,3 +151,7 @@ body {
     border: none;
     padding: 1em;
 }
+
+.sticky-main img {
+    width: 100%;
+}
