@@ -8,6 +8,7 @@ let eraser = document.querySelector(".eraser")
 let eraserEdit = document.querySelector(".eraser-edit")
 let eraserFlag = false
 let stickyTool = document.querySelector(".sticky")
+let upload = document.querySelector(".upload")
 
 // Menu open and close
 menu.addEventListener("click", () => {
@@ -27,7 +28,7 @@ eraser.addEventListener("click", ()=>{
     else {openEraser()}
 })
 
-// Pop up sticky note
+// Add sticky note
 stickyTool.addEventListener("click", () => {
     let stickyTemplate = 
         `<div class="sticky-header">
@@ -39,6 +40,13 @@ stickyTool.addEventListener("click", () => {
         </div>
         `
     createSticky(stickyTemplate)
+})
+
+// Upload Image
+upload.addEventListener("click", () => {
+    let inputFile = document.createElement("input")
+    inputFile.setAttribute("type", "file")
+    inputFile.click()
 })
 
 function createSticky(stickyTemplate) {
@@ -61,6 +69,17 @@ function createSticky(stickyTemplate) {
 function noteActions(minimizeSticky, deleteSticky, stickyContainer) {
     deleteSticky.addEventListener("click", (e) => {
         stickyContainer.remove()
+    })
+
+    minimizeSticky.addEventListener("click", (e) => {
+        let stickyMain = stickyContainer.querySelector(".sticky-main")
+        let displayProperty = getComputedStyle(stickyMain).getPropertyValue("display")
+        if (displayProperty === "block"){
+            stickyContainer.querySelector(".sticky-main").style.display = "none"
+        }
+        else {
+            stickyContainer.querySelector(".sticky-main").style.display = "block"
+        }
     })
 }
 

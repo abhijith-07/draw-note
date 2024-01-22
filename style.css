@@ -33,7 +33,7 @@ body {
     height: 4rem;
     font-size: 3rem;
     width: 40%;
-    animation: drop-down-animation 1.25s;
+    animation: drop-down-animation .75s;
     user-select: none;
 }
 
@@ -101,6 +101,7 @@ body {
     position: absolute;
     top: 25%;
     left: 10%;
+    width: 250px;
 }
 
 .sticky-header {
@@ -113,7 +114,7 @@ body {
 }
 
 .sticky-header:hover {
-    background-color: #b6b6b8;
+    background-color: #a7a7c1;
 }
 
 .sticky-minimize, .sticky-delete {
@@ -125,6 +126,10 @@ body {
     cursor: pointer;
 }
 
+.sticky-minimize:hover {
+    background-color: rgb(17, 200, 17);
+}
+
 .sticky-delete {
     background-color: rgb(255, 51, 0);
 }
@@ -134,7 +139,7 @@ body {
 }
 
 .sticky-main {
-    width: 250px;
+    width: 100%;
     height: 200px;
 }
 
