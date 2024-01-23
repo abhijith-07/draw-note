@@ -19,8 +19,12 @@ tool.lineWidth = "3";
 tool.fillStyle = "white";
 tool.fillRect(0, 0, canvas.width, canvas.height)
 
-let undoList = []
-let redoList = []
+// let undoList = []
+// let redoList = []
+
+let undoRedoTracker = []; //Data
+let track = 0; // Represent which action from tracker array
+
 
 // Mouse Draw
 canvas.addEventListener("mousedown", (e) => {
@@ -81,44 +85,79 @@ canvas.addEventListener("mousemove", (e) => {
 canvas.addEventListener("mouseup", () => {
     mousedownFlag = false;
     let url = canvas.toDataURL()
-    undoList.push(url)
-    // Clear redo list if new data is added
-    redoList = []
+    // undoList.push(url)
+    // // Clear redo list if new data is added
+    // redoList = []
+    
+    undoRedoTracker.push(url);
+    track = undoRedoTracker.length-1;
 });
 
-// Undo
-undo.addEventListener("click", () =>{
-    if(undoList.length>0){
-        if(undoList.length>1) {
-            let url = undoList[undoList.length-2]
-            viewUndoRedoCanvas(url)
-        } else {
-            tool.clearRect(0, 0, canvas.width, canvas.height)
-        }
-        redoList.push(undoList.pop())
-    } else {
-        console.log("Top less than 0")
+// // Undo
+// undo.addEventListener("click", () =>{
+//     if(undoList.length>0){
+//         if(undoList.length>1) {
+//             let url = undoList[undoList.length-2]
+//             viewUndoRedoCanvas(url)
+//         } else {
+//             tool.clearRect(0, 0, canvas.width, canvas.height)
+//         }
+//         redoList.push(undoList.pop())
+//     } else {
+//         console.log("Top less than 0")
+//     }
+// })
+
+// // Redo
+// redo.addEventListener("click", () =>{
+//     if(redoList.length>0){
+//         let url = redoList[redoList.length - 1]
+//         viewUndoRedoCanvas(url)
+
+//         undoList.push(redoList.pop())
+//     } else {
+//         console.log("No more changes to redo")
+//     }
+// })
+
+// // Function to View Undo Redo Canvas
+// function viewUndoRedoCanvas(url) {
+//     let img =  new Image()
+//     img.src = url
+//     img.onload = (e) => {
+//         tool.drawImage(img, 0, 0, canvas.width, canvas.height)
+//     }
+// }
+
+
+undo.addEventListener("click", (e) => {
+    if (track > 0) track--;
+    // track action
+    let data = {
+        trackValue: track,
+        undoRedoTracker
     }
+    socket.emit("redoUndo", data);
+})
+redo.addEventListener("click", (e) => {
+    if (track < undoRedoTracker.length-1) track++;
+    // track action
+    let data = {
+        trackValue: track,
+        undoRedoTracker
+    }
+    socket.emit("redoUndo", data);
 })
 
-// Redo
-redo.addEventListener("click", () =>{
-    if(redoList.length>0){
-        let url = redoList[redoList.length - 1]
-        viewUndoRedoCanvas(url)
+function undoRedoCanvas(trackObj) {
+    track = trackObj.trackValue;
+    undoRedoTracker = trackObj.undoRedoTracker;
 
-        undoList.push(redoList.pop())
-    } else {
-        console.log("No more changes to redo")
-    }
-})
-
-// Function to View Undo Redo Canvas
-function viewUndoRedoCanvas(url) {
-    let img =  new Image()
-    img.src = url
+    let url = undoRedoTracker[track];
+    let img = new Image(); // new image reference element
+    img.src = url;
     img.onload = (e) => {
-        tool.drawImage(img, 0, 0, canvas.width, canvas.height)
+        tool.drawImage(img, 0, 0, canvas.width, canvas.height);
     }
 }
 
@@ -140,4 +179,8 @@ socket.on("beginPathToServer", (data) => {
 socket.on("drawStrokeServer", (data) => {
     tool.lineTo(data.x, data.y)
     tool.stroke()
+})
+
+socket.on("redoUndo", (data) => {
+    undoRedoCanvas(data);
 })

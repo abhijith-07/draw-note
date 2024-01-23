@@ -24,4 +24,10 @@ io.on("connection", (socket) => {
     socket.on("drawStrokeServer", (data) => {
         io.sockets.emit("drawStrokeServer", data)
     })
+    socket.on("undoRedoListDraw", (data) => {
+        io.sockets.emit("undoRedoListDraw", data)
+    })
+    socket.on("redoUndo", (data) => {
+        io.sockets.emit("redoUndo", data);
+    })
 })
