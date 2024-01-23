@@ -99,7 +99,7 @@ redo.addEventListener("click", () =>{
 
         undoList.push(redoList.pop())
     } else {
-        console.log("Top greater than undo list length")
+        console.log("No more changes to redo")
     }
 })
 
