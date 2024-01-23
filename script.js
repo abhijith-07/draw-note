@@ -9,6 +9,7 @@ let eraserEdit = document.querySelector(".eraser-edit")
 let eraserFlag = false
 let stickyTool = document.querySelector(".sticky")
 let upload = document.querySelector(".upload")
+let download = document.querySelector(".save")
 
 // Menu open and close
 menu.addEventListener("click", () => {
@@ -64,6 +65,16 @@ upload.addEventListener("click", () => {
         createSticky(imageTemplate)
         
     })
+})
+
+// Download File as Image
+download.addEventListener("click", (e) => {
+    let url = canvas.toDataURL()
+    console.log("url:", url)
+    let a = document.createElement("a")
+    a.href = url
+    a.download = "board.jpg"
+    a.click()
 })
 
 function createSticky(template) {
