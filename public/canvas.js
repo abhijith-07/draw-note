@@ -26,8 +26,14 @@ let redoList = []
 canvas.addEventListener("mousedown", (e) => {
     mousedownFlag = true;
     let pos = getCanvasPosition(e);
-    tool.beginPath();
-    tool.moveTo(pos.x, pos.y);
+    // tool.beginPath();
+    // tool.moveTo(pos.x, pos.y);
+
+    let data = {
+        x: pos.x,
+        y: pos.y
+    }
+    socket.emit("beginPathToServer", data)
 });
 
 // Pencil Width
@@ -61,8 +67,13 @@ eraserWidthElement.addEventListener("change", (e) => {
 canvas.addEventListener("mousemove", (e) => {
     if (mousedownFlag) {
         let pos = getCanvasPosition(e);
-        tool.lineTo(pos.x, pos.y);
-        tool.stroke();
+        // tool.lineTo(pos.x, pos.y);
+        // tool.stroke();
+        let data = {
+            x: pos.x,
+            y: pos.y
+        }
+        socket.emit("drawStrokeServer", data)
     }
 });
 
@@ -84,7 +95,6 @@ undo.addEventListener("click", () =>{
         } else {
             tool.clearRect(0, 0, canvas.width, canvas.height)
         }
-
         redoList.push(undoList.pop())
     } else {
         console.log("Top less than 0")
@@ -120,3 +130,14 @@ function getCanvasPosition(e) {
         y: e.clientY - rect.top
     };
 }
+
+// Draw by data from server
+socket.on("beginPathToServer", (data) => {
+    tool.beginPath()
+    tool.moveTo(data.x, data.y)
+})
+
+socket.on("drawStrokeServer", (data) => {
+    tool.lineTo(data.x, data.y)
+    tool.stroke()
+})
